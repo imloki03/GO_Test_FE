@@ -1,14 +1,41 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Card from "../../../../components/Card";
 import {Button, TextField, Typography} from "@mui/material";
 import {getScore} from "../../../../api/scoreApi";
 
+const coreSubjects = [
+    { label: 'Math', key: 'toan' },
+    { label: 'Literature', key: 'nguVan' },
+    { label: 'Foreign Language', key: 'ngoaiNgu' },
+];
+
+const naturalGroup = [
+    { label: 'Physics', key: 'vatLi' },
+    { label: 'Chemistry', key: 'hoaHoc' },
+    { label: 'Biology', key: 'sinhHoc' },
+];
+
+const socialGroup = [
+    { label: 'History', key: 'lichSu' },
+    { label: 'Geography', key: 'diaLi' },
+    { label: 'Civic Education', key: 'gdcd' },
+];
 const SearchScore = () => {
     const [regNumber, setRegNumber] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const [score, setScore] = useState();
+    const [score, setScore] = useState(null);
+    const [groupSubjects, setGroupSubjects] = useState([]);
+
+    useEffect(() => {
+        const hasNatural = score!==null && naturalGroup.some(({ key }) => score?.[key] !== null);
+        const hasSocial = score!==null && socialGroup.some(({ key }) => score?.[key] !== null);
+        console.log(hasNatural, hasSocial)
+        if (hasNatural) setGroupSubjects([...coreSubjects, ...naturalGroup, { label: 'Foreign Language Code', key: 'maNgoaiNgu' }]);
+        else if (hasSocial) setGroupSubjects([...coreSubjects, ...socialGroup, { label: 'Foreign Language Code', key: 'maNgoaiNgu' }]);
+        else setGroupSubjects([]);
+    }, [score]);
 
     const handleSubmit = async () => {
         if (!regNumber.trim()) {
@@ -61,17 +88,7 @@ const SearchScore = () => {
                 <div style={{ marginTop: '2rem' }}>
                     <Typography variant="h6">Result:</Typography>
                     <ul>
-                        {[
-                            { label: 'Math', key: 'toan' },
-                            { label: 'Literature', key: 'nguVan' },
-                            { label: 'Foreign Language', key: 'ngoaiNgu' },
-                            { label: 'Physics', key: 'vatLi' },
-                            { label: 'Chemistry', key: 'hoaHoc' },
-                            { label: 'Biology', key: 'sinhHoc' },
-                            { label: 'History', key: 'lichSu' },
-                            { label: 'Geography', key: 'diaLi' },
-                            { label: 'Civic Education', key: 'gdcd' },
-                        ].map(({ label, key }) => (
+                        {groupSubjects.map(({ label, key }) => (
                             <li key={key}>
                                 <strong>{label}:</strong>{' '}
                                 {score[key] != null ? score[key] : 'No result'}
