@@ -103,11 +103,11 @@ const Dashboard = () => {
         <Card>
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                 <Typography variant="h4">
-                    Top 10 Students by Exam Group
+                    Top 10 Students by Group
                 </Typography>
                 <FormControl sx={{ width: 380 }}>
                     <InputLabel>Exam Group</InputLabel>
-                    <Select value={selectedGroup} label="Exam Group" onChange={handleChange}>
+                    <Select value={selectedGroup} label="Group" onChange={handleChange}>
                         <MenuItem value="A">A (Math, Physics, Chemistry)</MenuItem>
                         <MenuItem value="B">B (Math, Biology, Chemistry)</MenuItem>
                         <MenuItem value="C">C (Literature, History, Geography)</MenuItem>
