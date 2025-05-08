@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./pages/Dashboard/component/SideBar";
+import SearchScore from "./pages/Dashboard/page/SearchScore";
+import Report from "./pages/Dashboard/page/Report";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <div style={{ display: "flex" }}>
+          <Sidebar />
+          <div style={{ flex: 1, padding: "1rem" }} className="main-layout">
+            <Routes>
+              <Route path="/" element={<SearchScore />} />
+              <Route path="/score" element={<SearchScore />} />
+              <Route path="/report" element={<Report />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
   );
 }
 

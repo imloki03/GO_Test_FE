@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.main-layout {
+  min-height: 100vh;
+  background-image: url('./assets/layout_background.jpg');
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
